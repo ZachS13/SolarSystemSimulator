@@ -1,0 +1,20 @@
+{
+  "name": "solarsystemsimulator",
+  "version": "1.0.0",
+  "description": "This project is an interactive 3D simulation of the solar system built using JavaScript and Three.js. The goal is to visually represent how planets orbit the sun while keeping the system simple enough to run smoothly in a browser.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node ./src/js/tests/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZachS13/SolarSystemSimulator.git"
+  },
+  "author": "Zachary Stevens",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZachS13/SolarSystemSimulator/issues"
+  },
+  "homepage": "https://github.com/ZachS13/SolarSystemSimulator#readme"
+}
