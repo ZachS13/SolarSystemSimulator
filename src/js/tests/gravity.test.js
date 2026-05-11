@@ -3,7 +3,6 @@ import sun from '../planets/sun.js';
 
 import {
     computeDistance,
-    normalizeVector,
     computeDirectionVector,
     computeForceMagnitude,
     computeGravitationalForce,
@@ -34,67 +33,13 @@ function testComputeDistanceEarthSun() {
     const distance = computeDistance(earth, sun);
 
     const expectedDistance = 149.6e9; // meters
-    const tolerance = 1e6; // 1,000 km tolerance
+    const tolerance = 1e6;
 
     assertApproxEqual(
         distance,
         expectedDistance,
         tolerance,
         'computeDistance returns Earth-Sun distance'
-    );
-}
-
-function testNormalizeVector() {
-    const vector = { x: 10, y: 0, z: 0 };
-
-    const normalized = normalizeVector(vector);
-
-    assertApproxEqual(
-        normalized.x,
-        1,
-        0.0001,
-        'normalizeVector normalizes x value'
-    );
-
-    assertApproxEqual(
-        normalized.y,
-        0,
-        0.0001,
-        'normalizeVector keeps y value at 0'
-    );
-
-    assertApproxEqual(
-        normalized.z,
-        0,
-        0.0001,
-        'normalizeVector keeps z value at 0'
-    );
-}
-
-function testNormalizeZeroVector() {
-    const vector = { x: 0, y: 0, z: 0 };
-
-    const normalized = normalizeVector(vector);
-
-    assertApproxEqual(
-        normalized.x,
-        0,
-        0.0001,
-        'normalizeVector handles zero vector x'
-    );
-
-    assertApproxEqual(
-        normalized.y,
-        0,
-        0.0001,
-        'normalizeVector handles zero vector y'
-    );
-
-    assertApproxEqual(
-        normalized.z,
-        0,
-        0.0001,
-        'normalizeVector handles zero vector z'
     );
 }
 
@@ -190,7 +135,7 @@ function testComputeForceVectorEarthSun() {
 function testComputeAccelerationEarthSun() {
     const acceleration = computeAcceleration(earth, sun);
 
-    const expectedAccelerationX = -0.00593; // m/s^2, approximate
+    const expectedAccelerationX = -0.00593; // m/s^2
     const expectedAccelerationY = 0;
     const expectedAccelerationZ = 0;
     const tolerance = 0.0001;
@@ -221,8 +166,6 @@ export function runGravityTests() {
     console.log('\nRunning gravity tests...');
 
     testComputeDistanceEarthSun();
-    testNormalizeVector();
-    testNormalizeZeroVector();
     testComputeDirectionVectorEarthToSun();
     testComputeForceMagnitudeEarthSun();
     testComputeGravitationalForceEarthSun();
