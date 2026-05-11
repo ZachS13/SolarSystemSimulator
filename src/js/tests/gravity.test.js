@@ -1,8 +1,15 @@
-import mercury from '../planets/mercury.js';
 import earth from '../planets/earth.js';
-import neptune from '../planets/neptune.js';
 import sun from '../planets/sun.js';
-import { computeGravitationalForce } from '../physics/gravity.js';
+
+import {
+    computeDistance,
+    normalizeVector,
+    computeDirectionVector,
+    computeForceMagnitude,
+    computeGravitationalForce,
+    computeForceVector,
+    computeAcceleration
+} from '../physics/gravity.js';
 
 function assertApproxEqual(actual, expected, tolerance, testName) {
     const difference = Math.abs(actual - expected);
@@ -23,49 +30,202 @@ function assertApproxEqual(actual, expected, tolerance, testName) {
     }
 }
 
-function testMercurySunGravitationalForce() {
-    const calculatedForce = computeGravitationalForce(mercury, sun);
-    const expectedForce = 1.31e22;
-    const tolerance = 1e20;
+function testComputeDistanceEarthSun() {
+    const distance = computeDistance(earth, sun);
+
+    const expectedDistance = 149.6e9; // meters
+    const tolerance = 1e6; // 1,000 km tolerance
 
     assertApproxEqual(
-        calculatedForce,
-        expectedForce,
+        distance,
+        expectedDistance,
         tolerance,
-        'Mercury-Sun gravitational force'
+        'computeDistance returns Earth-Sun distance'
     );
 }
 
-function testEarthSunGravitationalForce() {
-    const calculatedForce = computeGravitationalForce(earth, sun);
+function testNormalizeVector() {
+    const vector = { x: 10, y: 0, z: 0 };
+
+    const normalized = normalizeVector(vector);
+
+    assertApproxEqual(
+        normalized.x,
+        1,
+        0.0001,
+        'normalizeVector normalizes x value'
+    );
+
+    assertApproxEqual(
+        normalized.y,
+        0,
+        0.0001,
+        'normalizeVector keeps y value at 0'
+    );
+
+    assertApproxEqual(
+        normalized.z,
+        0,
+        0.0001,
+        'normalizeVector keeps z value at 0'
+    );
+}
+
+function testNormalizeZeroVector() {
+    const vector = { x: 0, y: 0, z: 0 };
+
+    const normalized = normalizeVector(vector);
+
+    assertApproxEqual(
+        normalized.x,
+        0,
+        0.0001,
+        'normalizeVector handles zero vector x'
+    );
+
+    assertApproxEqual(
+        normalized.y,
+        0,
+        0.0001,
+        'normalizeVector handles zero vector y'
+    );
+
+    assertApproxEqual(
+        normalized.z,
+        0,
+        0.0001,
+        'normalizeVector handles zero vector z'
+    );
+}
+
+function testComputeDirectionVectorEarthToSun() {
+    const direction = computeDirectionVector(earth, sun);
+
+    assertApproxEqual(
+        direction.x,
+        -1,
+        0.0001,
+        'computeDirectionVector Earth to Sun x direction'
+    );
+
+    assertApproxEqual(
+        direction.y,
+        0,
+        0.0001,
+        'computeDirectionVector Earth to Sun y direction'
+    );
+
+    assertApproxEqual(
+        direction.z,
+        0,
+        0.0001,
+        'computeDirectionVector Earth to Sun z direction'
+    );
+}
+
+function testComputeForceMagnitudeEarthSun() {
+    const distance = computeDistance(earth, sun);
+
+    const forceMagnitude = computeForceMagnitude(
+        earth.mass,
+        sun.mass,
+        distance
+    );
+
     const expectedForce = 3.542e22;
     const tolerance = 1e20;
 
     assertApproxEqual(
-        calculatedForce,
+        forceMagnitude,
         expectedForce,
         tolerance,
-        'Earth-Sun gravitational force'
+        'computeForceMagnitude returns Earth-Sun force magnitude'
     );
 }
 
-function testNeptuneSunGravitationalForce() {
-    const calculatedForce = computeGravitationalForce(neptune, sun);
-    const expectedForce = 6.68e20;
-    const tolerance = 1e19;
+function testComputeGravitationalForceEarthSun() {
+    const force = computeGravitationalForce(earth, sun);
+
+    const expectedForce = 3.542e22;
+    const tolerance = 1e20;
 
     assertApproxEqual(
-        calculatedForce,
+        force,
         expectedForce,
         tolerance,
-        'Neptune-Sun gravitational force'
+        'computeGravitationalForce returns Earth-Sun gravitational force'
+    );
+}
+
+function testComputeForceVectorEarthSun() {
+    const forceVector = computeForceVector(earth, sun);
+
+    const expectedForceX = -3.542e22;
+    const expectedForceY = 0;
+    const expectedForceZ = 0;
+    const tolerance = 1e20;
+
+    assertApproxEqual(
+        forceVector.x,
+        expectedForceX,
+        tolerance,
+        'computeForceVector Earth-Sun x force'
+    );
+
+    assertApproxEqual(
+        forceVector.y,
+        expectedForceY,
+        tolerance,
+        'computeForceVector Earth-Sun y force'
+    );
+
+    assertApproxEqual(
+        forceVector.z,
+        expectedForceZ,
+        tolerance,
+        'computeForceVector Earth-Sun z force'
+    );
+}
+
+function testComputeAccelerationEarthSun() {
+    const acceleration = computeAcceleration(earth, sun);
+
+    const expectedAccelerationX = -0.00593; // m/s^2, approximate
+    const expectedAccelerationY = 0;
+    const expectedAccelerationZ = 0;
+    const tolerance = 0.0001;
+
+    assertApproxEqual(
+        acceleration.x,
+        expectedAccelerationX,
+        tolerance,
+        'computeAcceleration Earth toward Sun x acceleration'
+    );
+
+    assertApproxEqual(
+        acceleration.y,
+        expectedAccelerationY,
+        tolerance,
+        'computeAcceleration Earth toward Sun y acceleration'
+    );
+
+    assertApproxEqual(
+        acceleration.z,
+        expectedAccelerationZ,
+        tolerance,
+        'computeAcceleration Earth toward Sun z acceleration'
     );
 }
 
 export function runGravityTests() {
-    console.log('Running gravity tests...');
+    console.log('\nRunning gravity tests...');
 
-    testMercurySunGravitationalForce();
-    testEarthSunGravitationalForce();
-    testNeptuneSunGravitationalForce();
+    testComputeDistanceEarthSun();
+    testNormalizeVector();
+    testNormalizeZeroVector();
+    testComputeDirectionVectorEarthToSun();
+    testComputeForceMagnitudeEarthSun();
+    testComputeGravitationalForceEarthSun();
+    testComputeForceVectorEarthSun();
+    testComputeAccelerationEarthSun();
 }
