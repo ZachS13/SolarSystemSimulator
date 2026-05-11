@@ -45,8 +45,9 @@ SolarSystemSimulation/
 │    └── js/
 │    │   ├── physics/
 │    │   │  ├── constants.js    # Physics constants (G, etc.)
-│    │   │  ├── gravity.js     # Gravitational force calculations
-│    │   │  └── integrator.js  # Updates velocity and position over time
+│    │   │  ├── gravity.js      # Gravitational force calculations
+│    │   │  ├── integrator.js   # Updates velocity and position over time
+│    │   │  └── vector.js       # Handles vector logic
 │    │   │
 │    │   ├── planets/
 │    │   │   ├── Planet.js # Base planet class/logic
