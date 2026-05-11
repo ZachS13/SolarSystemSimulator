@@ -1,4 +1,4 @@
-import Planet from "./Planet";
+import Planet from "./Planet.js";
 
 const sun = new Planet({
     name: "Sun",
