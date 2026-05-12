@@ -63,6 +63,9 @@ SolarSystemSimulation/
 │    │   │   └── pluto.js
 │    │   │   
 │    │   └── tests/     # Testing 
+│    │   │   ├── gravity.test.js    # Gravity Tests
+│    │   │   ├── vector.test.js     # Vector Tests
+│    │   │   └── test.js            # Main test file
 │    └── textures/      # Planet textures
 └──
 ```
