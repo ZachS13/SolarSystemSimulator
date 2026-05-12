@@ -1,21 +1,39 @@
-// Integrator functions for updating the state of celestial bodies in the simulation
+import { addVectors, multiplyVectorScalar } from './vector.js';
+import { computeAcceleration } from './gravity.js';
 
-export function updateBodies(bodies, dt) {
-    return bodies; // Placeholder value, replace with actual update logic
+// Updates a body's velocity using acceleration and deltaTime
+export function updateVelocity(body, acceleration, deltaTime) {
+    const velocityChange = multiplyVectorScalar(acceleration, deltaTime);
+
+    body.velocity = addVectors(body.velocity, velocityChange);
+
+    return body.velocity;
 }
 
-export function resetAccelerations(bodies) {
-    return bodies; // Placeholder value, replace with actual reset logic
+// Updates a body's position using velocity and deltaTime
+export function updatePosition(body, deltaTime) {
+    const positionChange = multiplyVectorScalar(body.velocity, deltaTime);
+
+    body.position = addVectors(body.position, positionChange);
+
+    return body.position;
 }
 
-export function applyForces(bodies) {
-    return bodies; // Placeholder value, replace with actual force application logic
+// Updates one body based on the gravity from one attractor, like Earth being pulled by the Sun
+export function stepBody(body, attractor, deltaTime) {
+    const acceleration = computeAcceleration(body, attractor);
+
+    updateVelocity(body, acceleration, deltaTime);
+    updatePosition(body, deltaTime);
+
+    return body;
 }
 
-export function updateVelocities(bodies, dt) {
-    return bodies; // Placeholder value, replace with actual velocity update logic
-}
+// Updates all orbiting bodies around one attractor, like all planets around the Sun
+export function stepSimulation(bodies, attractor, deltaTime) {
+    for (const body of bodies) {
+        stepBody(body, attractor, deltaTime);
+    }
 
-export function updatePositions(bodies, dt) {
-    return bodies; // Placeholder value, replace with actual position update logic
+    return bodies;
 }
