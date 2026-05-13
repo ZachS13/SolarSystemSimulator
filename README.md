@@ -38,11 +38,15 @@ The current focus is building a solid foundation before expanding into more adva
 ## Project Structure
 ```  
 SolarSystemSimulation/
-│── index.html
-│── README.md
+├── index.html
+├── package.json
+├── README.md
 │
 └── src/
-│    └── js/
+│    ├── css/
+|    |   └── style.css
+│    │   
+│    ├── js/
 │    │   ├── physics/
 │    │   │  ├── constants.js    # Physics constants (G, etc.)
 │    │   │  ├── gravity.js      # Gravitational force calculations
@@ -61,11 +65,19 @@ SolarSystemSimulation/
 │    │   │   ├── uranus.js
 │    │   │   ├── neptune.js
 │    │   │   └── pluto.js
+│    │   │
+│    │   ├── renderer/
+│    │   │   ├── scene.js
+│    │   │   ├── camera.js
+│    │   │   ├── renderer.js
+│    │   │   └── createPlanetMesh.js
 │    │   │   
-│    │   └── tests/     # Testing 
+│    │   ├── tests/     # Testing 
 │    │   │   ├── gravity.test.js    # Gravity Tests
 │    │   │   ├── vector.test.js     # Vector Tests
 │    │   │   └── test.js            # Main test file
+│    │   │
+│    │   └── main.js
 │    └── textures/      # Planet textures
 └──
 ```
