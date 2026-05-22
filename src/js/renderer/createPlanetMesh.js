@@ -4,8 +4,8 @@ import { SIZE_SCALE, DISTANCE_SCALE } from './renderScale.js';
 export function createPlanetMesh(body) {
     const geometry = new THREE.SphereGeometry(body.radius * SIZE_SCALE, 32, 32);
 
-    const material = new THREE.MeshStandardMaterial({
-        color: body.color || 0xffffff
+    const material = new THREE.MeshBasicMaterial({
+        color: 0x2266ff
     });
 
     const mesh = new THREE.Mesh(geometry, material);
