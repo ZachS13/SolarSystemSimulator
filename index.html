@@ -2,20 +2,47 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Solar System Simulator</title>
-    <link rel="stylesheet" href="./src/css/style.css">
+
+    <link rel="stylesheet" href="./src/css/style.css" />
+
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+      }
+    }
+  </script>
 </head>
 
 <body>
-    <div id="app">
-        <div id="info-panel">
-            <h1>Solar System Simulator</h1>
-            <p>Physics-based orbital simulation using JavaScript and Three.js</p>
+    <div id="ui-panel">
+        <h1>Solar System Simulator</h1>
+
+        <div class="control-group">
+            <label for="planetSelect">Go to planet</label>
+
+            <select id="planetSelect">
+                <option value="sun">Sun</option>
+                <option value="mercury">Mercury</option>
+                <option value="venus">Venus</option>
+                <option value="earth" selected>Earth</option>
+                <option value="mars">Mars</option>
+                <option value="jupiter">Jupiter</option>
+                <option value="saturn">Saturn</option>
+                <option value="uranus">Uranus</option>
+                <option value="neptune">Neptune</option>
+                <option value="pluto">Pluto</option>
+            </select>
         </div>
 
-        <canvas id="solar-system-canvas"></canvas>
+        <p class="hint">
+            Drag to orbit. Scroll to zoom.
+        </p>
     </div>
 
     <script type="module" src="./src/js/main.js"></script>
